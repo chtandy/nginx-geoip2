@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  alb-nginx:
+    image: r19750927/nginx-1.22.1:geoip2
+    build: .
+    hostname: alb-nginx
+    container_name: alb-nginx
+    volumes:
+      #- ./nginx.conf:/etc/nginx/nginx.conf
+      - ./conf.d:/etc/nginx/conf.d
+      #- ./GeoLite2-Country.mmdb:/etc/nginx/GeoLite2-Country.mmdb
+      #- ./GeoLite2-City.mmdb:/etc/nginx/GeoLite2-City.mmdb
+    ports:
+      - "80:80"
+      - "443:443"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
